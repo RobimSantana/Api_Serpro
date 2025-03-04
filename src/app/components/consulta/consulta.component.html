@@ -1,0 +1,10 @@
+<div class="container">
+    <h2>Consulta Situação</h2>
+    <button (click)="consultar()">Consultar</button>
+  
+    <div *ngIf="resultado">
+      <h3>Resultado:</h3>
+      <pre>{{ resultado | json }}</pre>
+    </div>
+  </div>
+  

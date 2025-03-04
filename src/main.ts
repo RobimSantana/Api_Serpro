@@ -1,6 +1,14 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter, Routes } from '@angular/router';
+import { ConsultaComponent } from './app/components/consulta/consulta.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+const routes: Routes = [
+  { path:'', component: ConsultaComponent}
+];
+
+bootstrapApplication(AppComponent, {
+  providers: [ provideHttpClient(), provideRouter(routes)]
+
+}).catch(err => console.error(err));
