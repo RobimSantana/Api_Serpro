@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 
 
 @Injectable({
@@ -16,7 +17,15 @@ export class SerproService {
   // metodo emitir
   emitirRelatorio(data: any): Observable<any> {
     const url = `${this.apiUrl}/Emitir`;
-    return this.http.post(url, data, { headers: this.getHeaders() });
+    return this.http.post(url, data, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  //Metodo para tratar erros
+  private handleError(error: any){
+    console.error('Erro na requisição:', error);
+    return throwError(() => Error('Erro ao processar a requisição.'))
   }
 
   // Metodo para consultar situação
@@ -27,7 +36,7 @@ export class SerproService {
   //metodo para configurar os Headers
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'jwt_token': this.token,
+      'Authorization':`Bearer ${this.token}`,
       'Content-Type': 'application/json',
     });
   }
