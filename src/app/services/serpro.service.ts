@@ -27,7 +27,7 @@ export class SerproService {
   //metodo para configurar os Headers
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'x-api-key': this.token,
+      'jwt_token': this.token,
       'Content-Type': 'application/json',
     });
   }
